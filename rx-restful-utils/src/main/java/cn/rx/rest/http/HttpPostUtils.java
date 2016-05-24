@@ -22,7 +22,7 @@ import java.nio.charset.Charset;
 import java.util.Map;
 
 /**
- * Created by xule on 15/11/11.
+ * Created by richard.xu on 15/11/11.
  */
 public class HttpPostUtils {
     private static Log log = LogFactory.getLog(HttpPostUtils.class);

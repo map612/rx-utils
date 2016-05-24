@@ -7,7 +7,7 @@ import java.text.DecimalFormat;
  * <p/>
  * 创建时间: 16/4/25<br/>
  *
- * @author xule
+ * @author richard.xu
  * @since v0.0.1
  */
 public class NumberUtils {

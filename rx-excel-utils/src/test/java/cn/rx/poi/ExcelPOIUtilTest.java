@@ -8,7 +8,7 @@ import org.junit.Test;
  * <p/>
  * 创建时间: 16/5/23<br/>
  *
- * @author xule
+ * @author richard.xu
  * @since v0.0.1
  */
 public class ExcelPOIUtilTest {
@@ -16,7 +16,7 @@ public class ExcelPOIUtilTest {
     @Test
     public void testReadExcel() throws Exception{
         long s = System.currentTimeMillis();
-        ExcelPOIUtil util = ExcelPOIUtil.getInstance("/Users/xule/Downloads/经营数据.xlsx");
+        ExcelPOIUtil util = ExcelPOIUtil.getInstance("/Users/richard.xu/Downloads/经营数据.xlsx");
         String[][] cells = util.getCellValues(1, 1, 10, 8, 10);
 
         System.out.println(cells.length);

@@ -10,7 +10,7 @@ import java.io.File;
  * <p/>
  * 创建时间: 16/5/23<br/>
  *
- * @author xule
+ * @author richard.xu
  * @since v0.0.1
  */
 public class FilePathUtilsTest {

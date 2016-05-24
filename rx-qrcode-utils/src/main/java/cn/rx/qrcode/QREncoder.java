@@ -85,7 +85,7 @@ public class QREncoder {
     public static void main(String[] args) {
 
         String content = "https://www.baidu.com/s?wd=fighting";
-        String imgPath = "/Users/xule/Downloads/temp/qr_lipengcheng.png";
+        String imgPath = "/Users/richard.xu/Downloads/temp/qr_lipengcheng.png";
         long start = System.currentTimeMillis();
         System.out.println("========encoder start...");
         System.out.println("========content length: " + content.length());

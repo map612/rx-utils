@@ -9,7 +9,7 @@ import java.io.File;
  * <p/>
  * 创建时间: 16/1/12<br/>
  *
- * @author xule
+ * @author richard.xu
  * @since v0.0.1
  */
 public class FilePathUtils {

@@ -9,7 +9,7 @@ public class QRCodeUtilsTest {
         QRCodeUtil qrCoder = new QRCodeUtil(300);
         // encode
         String content = "https://www.baidu.com/s?wd=richard.xu";
-        String imgPath = "/Users/xule/Downloads/temp/qrcode_test.png";
+        String imgPath = "/Users/richard.xu/Downloads/temp/qrcode_test.png";
         long start = System.currentTimeMillis();
         System.out.println("========encoder start...");
         System.out.println("========content length: " + content.length());
@@ -30,7 +30,7 @@ public class QRCodeUtilsTest {
 
     @Test
     public void testQRDecoder() {
-        String imgPath = "/Users/xule/Downloads/temp/qr_test2.png";
+        String imgPath = "/Users/richard.xu/Downloads/temp/qr_test2.png";
         long start = System.currentTimeMillis();
         System.out.println("========decoder start...");
         String decoderContent = QRDecoder.decoderQRCode(imgPath);

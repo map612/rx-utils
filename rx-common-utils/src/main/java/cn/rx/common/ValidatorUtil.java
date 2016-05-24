@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  * 数据类型验证工具<p/>
  * 创建时间: 16/2/3<br/>
  *
- * @author xule
+ * @author richard.xu
  * @since v0.0.1
  */
 public class ValidatorUtil {

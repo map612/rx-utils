@@ -10,7 +10,7 @@ import java.util.Date;
  * <p/>
  * 创建时间: 15/12/23 下午10:42<br/>
  *
- * @author xule
+ * @author richard.xu
  * @since v0.0.1
  */
 public class DateUtil {
