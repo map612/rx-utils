@@ -1,0 +1,12 @@
+.sass-cache
+.DS_Store
+
+logs/
+
+build/
+classes/
+logger-samples/
+.gradle/
+.idea/
+*.iml
+.project

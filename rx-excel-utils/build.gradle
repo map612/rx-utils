@@ -1,0 +1,6 @@
+dependencies {
+    compile "org.apache.poi:poi:$apachePoiVersion"
+    compile "org.apache.poi:poi-ooxml:$apachePoiVersion"
+    compile "org.apache.poi:poi-ooxml-schemas:$apachePoiVersion"
+    compile "org.apache.poi:poi-scratchpad:$apachePoiVersion"
+}

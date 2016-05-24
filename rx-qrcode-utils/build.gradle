@@ -1,0 +1,10 @@
+dependencies {
+    compile 'org.aspectj:aspectjweaver:1.7.4'
+    compile 'org.aspectj:aspectjrt:1.7.4'
+
+    compile "com.google.guava:guava:$guavaVersion"
+    compile "org.apache.commons:commons-lang3:$apacheCommonsLang3Version"
+
+    compile 'com.fasterxml.jackson.core:jackson-core:2.7.3'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
+}

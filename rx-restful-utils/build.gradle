@@ -1,0 +1,13 @@
+dependencies {
+//    providedCompile "javax.servlet:javax.servlet-api:$servletVersion"
+    compile "javax.servlet:javax.servlet-api:$servletVersion"
+
+    compile "org.apache.commons:commons-lang3:$apacheCommonsLang3Version"
+    compile "commons-collections:commons-collections:3.2.1"
+    compile "org.apache.httpcomponents:httpclient:${httpclientVersion}"
+    compile "org.apache.httpcomponents:httpmime:4.5.1"
+    compile "commons-httpclient:commons-httpclient:3.1"
+    compile "commons-io:commons-io:$apacheCommonsIOVersion"
+
+    compile "com.alibaba:fastjson:$fastjsonVersion"
+}

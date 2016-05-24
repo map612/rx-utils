@@ -1,0 +1,12 @@
+dependencies {
+    compile "org.apache.commons:commons-lang3:$apacheCommonsLang3Version"
+
+    compile "commons-collections:commons-collections:3.2.1"
+    compile "org.apache.ant:ant:$antVersion"
+
+    compile "commons-io:commons-io:$apacheCommonsIOVersion"
+//    compile "com.google.code.gson:gson:$gsonVersion"
+    compile "com.alibaba:fastjson:$fastjsonVersion"
+
+    compile project(':rx-restful-utils')
+}
