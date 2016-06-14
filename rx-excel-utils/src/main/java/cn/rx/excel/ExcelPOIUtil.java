@@ -6,6 +6,7 @@
 package cn.rx.excel;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -356,6 +357,24 @@ public class ExcelPOIUtil {
 		for (int i = 0; i < values.length; i++) {
 			insertRow(sheetIndex, rowIndex + i, colIndex, values[i]);
 		}
+	}
+
+	/**
+	 * 删除行
+	 * @param sheetIndex
+	 * @param rowIndex
+	 */
+	public void deleteRow(int sheetIndex, int rowIndex) {
+		XSSFSheet sheet = workbook.getSheetAt(sheetIndex - 1);
+		//unmerge merged rows while same with delete row
+		int mergeCellNum = sheet.getNumMergedRegions();
+		for (int i = 0; i < mergeCellNum; i++) {
+			CellRangeAddress mergedCell = sheet.getMergedRegion(i);
+			if ((rowIndex - 1) >= mergedCell.getFirstRow() && (rowIndex - 1) <= mergedCell.getLastRow()) {
+				sheet.removeMergedRegion(i);
+			}
+		}
+		sheet.shiftRows(rowIndex, sheet.getLastRowNum(), -1);
 	}
 
 	/**
