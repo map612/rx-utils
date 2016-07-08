@@ -4,4 +4,6 @@ include 'rx-excel-utils'
 include 'rx-common-utils'
 include 'rx-security-utils'
 include 'rx-restful-utils'
+include 'rx-chart-utils'
+include 'rx-pdf-utils'
 

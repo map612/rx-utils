@@ -1,3 +1,4 @@
 dependencies {
     compile "org.apache.commons:commons-lang3:$apacheCommonsLang3Version"
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.10'
 }

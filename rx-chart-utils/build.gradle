@@ -1,0 +1,5 @@
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile "org.apache.commons:commons-lang3:$apacheCommonsLang3Version"
+    compile 'org.jfree:jfreechart:1.0.19'
+}
