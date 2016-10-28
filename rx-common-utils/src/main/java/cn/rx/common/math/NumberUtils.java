@@ -1,5 +1,6 @@
 package cn.rx.common.math;
 
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 /**
@@ -11,32 +12,35 @@ import java.text.DecimalFormat;
  * @since v0.0.1
  */
 public class NumberUtils {
-    public static DecimalFormat df = new DecimalFormat("###############0.00");
+    public static String dfmt = "#0.00";
+    public static DecimalFormat df = new DecimalFormat(dfmt);
 
-    /**
-     * 保留两位小数
-     * @param num
-     * @return
-     */
-    public static Double format(Double num){
-        return Double.valueOf(format2str(num));
+    static {
+        df.setRoundingMode(RoundingMode.HALF_UP);
     }
 
-    public static String format2str(Double num){
+    public static Double format(Double num) {
+        return Double.valueOf(df.format(num).toString());
+    }
+
+    public static Double format(Double num, String format) {
+        DecimalFormat cdf = new DecimalFormat(format);
+        cdf.setRoundingMode(RoundingMode.HALF_UP);
+        return Double.valueOf(cdf.format(num).toString());
+    }
+
+    public static String format2str(Double num) {
+        return format2str(num, true);
+    }
+
+    public static String format2str(Double num, boolean groupingUsed) {
+        return format2str(num, dfmt, groupingUsed);
+    }
+
+    public static String format2str(Double num, String format, boolean groupingUsed) {
+        DecimalFormat df = new DecimalFormat(format);
+        df.setGroupingUsed(groupingUsed);
+        df.setGroupingSize(3);
         return df.format(num);
-    }
-
-    /**
-     * 格式化数字
-     * @param num
-     * @return
-     */
-    public static Double format(Double num, String format){
-        return Double.valueOf(format2str(num, format).toString());
-    }
-
-    public static String format2str(Double num, String format){
-        DecimalFormat formatter = new DecimalFormat(format);
-        return formatter.format(num);
     }
 }

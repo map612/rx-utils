@@ -8,13 +8,15 @@ import org.junit.Test;
  * <p/>
  * 创建时间: 16/5/27<br/>
  *
- * @author xule
+ * @author richard.xu
  * @since v0.0.1
  */
 public class NumberUtilTest {
 
     public static void main(String[] args) {
-        System.out.println(NumberUtils.format2str(88888888.888d));
-        System.out.println(NumberUtils.format2str(88888888.888d, ".00"));
+        System.out.println(NumberUtils.format(67.425));
+        System.out.println(NumberUtils.format(0.425, "#0.00"));
+        System.out.println(NumberUtils.format2str(12313.425));
+        System.out.println(NumberUtils.format2str(12313.425, false));
     }
 }
