@@ -117,7 +117,7 @@ public class ValidatorUtil {
      * @param text
      */
     public static boolean isColor(String text) {
-        Pattern p = Pattern.compile("^[a-fA-F0-9]{6}$");
+        Pattern p = Pattern.compile("^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$");
         Matcher m = p.matcher(text);
         return m.matches();
     }
@@ -217,7 +217,7 @@ public class ValidatorUtil {
      * @param text
      */
     public static boolean isDate(String text, String format) {
-        return DateUtil.parsAble(text, format);
+        return DateUtil.parseAble(text, format);
     }
 
     /**
