@@ -17,7 +17,7 @@ public class ValidatorUtil {
      * @param text
      */
     public static boolean isInt(String text) {
-        Pattern p = Pattern.compile("^-?[1-9]\\d*$");
+        Pattern p = Pattern.compile("^-?\\d*$");
         Matcher m = p.matcher(text);
         return m.matches();
     }
