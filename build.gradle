@@ -114,19 +114,19 @@ subprojects {
         sourceSets*.resources.srcDirs*.each { it.mkdirs() }
 
         /** 可选生成子文件夹 */
-        file("src/main/filters").mkdirs()
-        file("src/main/assembly").mkdirs()
-        file("src/main/config").mkdirs()
-        file("src/main/scripts").mkdirs()
+//        file("src/main/filters").mkdirs()
+//        file("src/main/assembly").mkdirs()
+//        file("src/main/config").mkdirs()
+//        file("src/main/scripts").mkdirs()
 
         /** 填充文件，便于git提交 */
-        file("src/main/java/cn/rx").mkdirs()
-        file("src/main/java/cn/rx/package-info.java").createNewFile()
+        file("src/main/java/cn/rx/utils").mkdirs()
+        file("src/main/java/cn/rx/utils/package-info.java").createNewFile()
         file("src/main/resources").mkdirs()
         file("src/main/resources/spring.xml").createNewFile()
 
-        file("src/test/java/cn/rx").mkdirs()
-        file("src/test/java/cn/rx/package-info.java").createNewFile()
+        file("src/test/java/cn/rx/utils").mkdirs()
+        file("src/test/java/cn/rx/utils/package-info.java").createNewFile()
         file("src/test/resources/spring.xml").createNewFile()
     }
 
