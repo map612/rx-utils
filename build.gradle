@@ -4,7 +4,7 @@ apply plugin: "sonar-runner"
 
 //apply from: 'dependencies.gradle'
 
-sourceCompatibility = 1.7
+sourceCompatibility = 1.8
 
 //删除父目录下的test，避免test task执行失败
 delete "${buildDir}/classes/test"
@@ -23,9 +23,9 @@ buildscript {
     }
 }
 
-tasks.withType(Compile) {
-    options.encoding = "UTF-8"
-}
+//tasks.withType(Compile) {
+//    options.encoding = "UTF-8"
+//}
 
 project.configurations.all {
     resolutionStrategy {
