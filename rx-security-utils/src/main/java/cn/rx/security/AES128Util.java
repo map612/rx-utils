@@ -13,7 +13,7 @@ import javax.crypto.spec.SecretKeySpec;
  * <p/>
  * 创建时间: 16/2/17<br/>
  *
- * @author xule
+ * @author richard.xu
  * @since v0.0.1
  */
 public class AES128Util {

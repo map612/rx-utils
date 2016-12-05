@@ -1,6 +1,7 @@
 package cn.rx.security;
 
-import cn.thinkjoy.common.utils.Exceptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -12,10 +13,8 @@ import java.security.GeneralSecurityException;
 import java.security.SecureRandom;
 import java.util.Arrays;
 
-/**
- * Created by Michael on 11/6/14.
- */
 public class Cryptos {
+    private static Logger logger = LoggerFactory.getLogger(Encodes.class);
 
     private static final String AES = "AES";
     private static final String AES_CBC = "AES/CBC/PKCS5Padding";
@@ -42,7 +41,8 @@ public class Cryptos {
             mac.init(secretKey);
             return mac.doFinal(input);
         } catch (GeneralSecurityException e) {
-            throw Exceptions.bizException(e);
+            logger.error("", e);
+            return null;
         }
     }
 
@@ -69,7 +69,8 @@ public class Cryptos {
             SecretKey secretKey = keyGenerator.generateKey();
             return secretKey.getEncoded();
         } catch (GeneralSecurityException e) {
-            throw Exceptions.bizException(e);
+            logger.error("", e);
+            return null;
         }
     }
 
@@ -133,7 +134,8 @@ public class Cryptos {
             cipher.init(mode, secretKey);
             return cipher.doFinal(input);
         } catch (GeneralSecurityException e) {
-            throw Exceptions.bizException(e);
+            logger.error("", e);
+            return null;
         }
     }
 
@@ -153,7 +155,8 @@ public class Cryptos {
             cipher.init(mode, secretKey, ivSpec);
             return cipher.doFinal(input);
         } catch (GeneralSecurityException e) {
-            throw Exceptions.bizException(e);
+            logger.error("", e);
+            return null;
         }
     }
 
@@ -174,7 +177,8 @@ public class Cryptos {
             SecretKey secretKey = keyGenerator.generateKey();
             return secretKey.getEncoded();
         } catch (GeneralSecurityException e) {
-            throw Exceptions.bizException(e);
+            logger.error("", e);
+            return null;
         }
     }
 

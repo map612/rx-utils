@@ -1,20 +1,19 @@
 package cn.rx.security;
 
-import cn.thinkjoy.common.utils.Exceptions;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 
-/**
- * Created by Michael on 11/6/14.
- *
- */
 public class Encodes {
+    private static Logger logger = LoggerFactory.getLogger(Encodes.class);
+
     private static final String DEFAULT_URL_ENCODING = "UTF-8";
     private static final char[] BASE62 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".toCharArray();
 
@@ -32,7 +31,8 @@ public class Encodes {
         try {
             return Hex.decodeHex(input.toCharArray());
         } catch (DecoderException e) {
-            throw Exceptions.bizException(e);
+            logger.error("", e);
+            return null;
         }
     }
 
@@ -94,7 +94,8 @@ public class Encodes {
         try {
             return URLEncoder.encode(part, DEFAULT_URL_ENCODING);
         } catch (UnsupportedEncodingException e) {
-            throw Exceptions.bizException(e);
+            logger.error("", e);
+            return null;
         }
     }
 
@@ -106,7 +107,8 @@ public class Encodes {
         try {
             return URLDecoder.decode(part, DEFAULT_URL_ENCODING);
         } catch (UnsupportedEncodingException e) {
-            throw Exceptions.bizException(e);
+            logger.error("", e);
+            return null;
         }
     }
 }

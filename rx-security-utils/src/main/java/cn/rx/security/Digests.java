@@ -10,9 +10,6 @@ import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 
-/**
- * Created by Michael on 11/6/14.
- */
 public class Digests {
     private static Logger log = LoggerFactory.getLogger(Digests.class);
 

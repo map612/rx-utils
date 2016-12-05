@@ -7,7 +7,7 @@ import org.junit.Test;
  * <p/>
  * 创建时间: 16/5/24<br/>
  *
- * @author xule
+ * @author richard.xu
  * @since v0.0.1
  */
 public class AES128UtilTest {
@@ -30,5 +30,7 @@ public class AES128UtilTest {
         System.out.println("解密后的字串是：" + DeString);
         lUseTime = System.currentTimeMillis() - lStart;
         System.out.println("解密耗时：" + lUseTime + "毫秒");
+
+
     }
 }
