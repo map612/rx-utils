@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  * @author richard.xu
  * @since v0.0.1
  */
-public class ValidatorUtil {
+public class ValidatorUtils {
 
     /**
      * 是否是整数
@@ -126,11 +126,11 @@ public class ValidatorUtil {
      * 是否是url
      * @param text
      */
-    public static boolean isUrl(String text) {
-        Pattern p = Pattern.compile("^http[s]?:\\/\\/([\\w-]+\\.)+[\\w-]+([\\w-./?%&=]*)?$");
-        Matcher m = p.matcher(text);
-        return m.matches();
-    }
+//    public static boolean isUrl(String text) {
+//        Pattern p = Pattern.compile("^http[s]?:\\/\\/([\\w-]+\\.)+[\\w-]+([\\w-./?%&=]*)?$");
+//        Matcher m = p.matcher(text);
+//        return m.matches();
+//    }
 
     /**
      * 是否是中文
@@ -217,7 +217,7 @@ public class ValidatorUtil {
      * @param text
      */
     public static boolean isDate(String text, String format) {
-        return DateUtil.parseAble(text, format);
+        return DateUtils.parseAble(text, format);
     }
 
     /**

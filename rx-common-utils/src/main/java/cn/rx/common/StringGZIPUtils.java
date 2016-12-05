@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
-public class StringGZIPUtil {
+public class StringGZIPUtils {
     private static String encode = "utf-8";
 
     /**
@@ -89,6 +89,6 @@ public class StringGZIPUtil {
     }
 
     public void setEncode(String encode) {
-        StringGZIPUtil.encode = encode;
+        StringGZIPUtils.encode = encode;
     }
 }

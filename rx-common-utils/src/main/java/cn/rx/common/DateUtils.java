@@ -15,8 +15,8 @@ import java.util.Date;
  * @author richard.xu
  * @since v0.0.1
  */
-public class DateUtil {
-    private static Logger logger = LoggerFactory.getLogger(DateUtil.class);
+public class DateUtils {
+    private static Logger logger = LoggerFactory.getLogger(DateUtils.class);
 
     public static String shortDatePattern = "yyyy-MM-dd";
     public static String longDatePattern = "yyyy-MM-dd HH:mm:ss";

@@ -8,7 +8,7 @@ package cn.rx.common;
  * @author richard.xu
  * @since v0.0.1
  */
-public class ByteUtil {
+public class ByteUtils {
 
     /**
      * byte[] 转为String
