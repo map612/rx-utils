@@ -9,8 +9,8 @@ dependencies {
 //    compile "com.google.code.gson:gson:$gsonVersion"
     compile "com.alibaba:fastjson:$fastjsonVersion"
 
-    compile project(':rx-restful-utils')
-
     compile group: 'org.jsoup', name: 'jsoup', version: '1.9.2'
     compile group: 'us.codecraft', name: 'xsoup', version: '0.3.1'
+
+    compile project(':rx-restful-utils')
 }

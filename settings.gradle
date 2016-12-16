@@ -6,4 +6,5 @@ include 'rx-security-utils'
 include 'rx-restful-utils'
 include 'rx-chart-utils'
 include 'rx-pdf-utils'
+include 'rx-mail-utils'
 
