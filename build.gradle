@@ -50,7 +50,7 @@ project.configurations.all {
 
 /** 此闭包内的声明子类皆可使用 */
 allprojects {
-    group = 'cn.rx.utils'
+    group = 'cn.rxframework.utils'
     version = '0.0.6-SNAPSHOT'
 
     apply plugin: 'java'
