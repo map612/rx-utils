@@ -51,7 +51,7 @@ project.configurations.all {
 /** 此闭包内的声明子类皆可使用 */
 allprojects {
     group = 'cn.rxframework.utils'
-    version = '0.0.6-SNAPSHOT'
+    version = '0.0.7-SNAPSHOT'
 
     apply plugin: 'java'
     apply plugin: 'idea'
@@ -120,13 +120,13 @@ subprojects {
 //        file("src/main/scripts").mkdirs()
 
         /** 填充文件，便于git提交 */
-        file("src/main/java/cn/rx/utils").mkdirs()
-        file("src/main/java/cn/rx/utils/package-info.java").createNewFile()
+        file("src/main/java/cn/rxframework/utils").mkdirs()
+        file("src/main/java/cn/rxframework/utils/package-info.java").createNewFile()
         file("src/main/resources").mkdirs()
         file("src/main/resources/spring.xml").createNewFile()
 
-        file("src/test/java/cn/rx/utils").mkdirs()
-        file("src/test/java/cn/rx/utils/package-info.java").createNewFile()
+        file("src/test/java/cn/rxframework/utils").mkdirs()
+        file("src/test/java/cn/rxframework/utils/package-info.java").createNewFile()
         file("src/test/resources/spring.xml").createNewFile()
     }
 
