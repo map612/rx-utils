@@ -1,7 +1,6 @@
 package cn.rxframework.utils.security;
 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
+import org.apache.commons.codec.binary.Base64;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -46,7 +45,7 @@ public class AESUtils {
      * @return 编码后的base 64 code
      */
     public static String base64Encode(byte[] bytes) {
-        return new BASE64Encoder().encode(bytes);
+        return new Base64().encodeAsString(bytes);
     }
 
     /**
@@ -57,7 +56,7 @@ public class AESUtils {
      * @throws Exception
      */
     public static byte[] base64Decode(String base64Code) throws Exception {
-        return new BASE64Decoder().decodeBuffer(base64Code);
+        return new Base64().decode(base64Code);
     }
 
     /**
