@@ -8,6 +8,7 @@ sourceCompatibility = 1.8
 
 //删除父目录下的test，避免test task执行失败
 delete "${buildDir}/classes/test"
+mainClassName = ' '
 
 buildscript {
     repositories {

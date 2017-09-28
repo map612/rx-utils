@@ -10,3 +10,7 @@ logger-samples/
 .idea/
 *.iml
 .project
+
+.settings/
+*.classpath
+rx-*-utils/.gitignore
