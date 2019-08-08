@@ -16,10 +16,10 @@ public class ExcelPOIUtilTest {
     @Test
     public void testReadExcel() throws Exception{
         long s = System.currentTimeMillis();
-        ExcelPOIUtil util = ExcelPOIUtil.getInstance("/Users/richard.xu/Downloads/经营数据.xlsx");
-        String[][] cells = util.getCellValues(1, 1, 10, 8, 10);
+        // ExcelPOIUtil util = ExcelPOIUtil.getInstance("/Users/richard.xu/Downloads/经营数据.xlsx");
+        // String[][] cells = util.getCellValues(1, 1, 10, 8, 10);
 
-        System.out.println(cells.length);
+        // System.out.println(cells.length);
 
 //		ExcelPOIUtil util2;// =
         // ExcelPOIUtil.getWriteInstance("E:/工作内容/专家系统/线上文件/data4MKT-baidu-(AUTO).xlsx",

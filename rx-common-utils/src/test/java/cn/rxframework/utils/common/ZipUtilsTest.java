@@ -13,7 +13,7 @@ import org.junit.Test;
  */
 public class ZipUtilsTest {
     @Test
-    public void main(String[] args) {
+    public void main() {
 //		String fileDownloadPath = "d:/aaa";
 //		String fileZipPath = "d:/ccc";
 //		String[] urls = {
