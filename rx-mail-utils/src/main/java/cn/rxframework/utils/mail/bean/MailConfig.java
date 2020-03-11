@@ -14,17 +14,18 @@ import java.util.Properties;
  */
 public class MailConfig {
 
-    private static String mailHost;
-
+    private static String mailHostReceiver;
+    private static String mailHostSender;
+    private static String mailSendPort;
+    private static String mailReceivePort;
+    private static boolean mailDebug;
     private static String mailPath;
-
     private static boolean isValidate;
-
     private static String mailFromUserName;
-
     private static String mailFromUserPswd;
-
-    private static MailMsgBean mailBean;
+    private static int mailHoursIn;
+    private static String attachPath;
+    private static MessageSendEntity mailBean;
 
     static {
         Properties props = new Properties();
@@ -41,34 +42,34 @@ public class MailConfig {
             e.printStackTrace();
         }
 
-        mailHost = props.getProperty("mailHost");
-        mailPath = props.getProperty("mailPath");
-        isValidate = Boolean.valueOf(props.getProperty("mailIsValidate"));
-        mailFromUserName = props.getProperty("mailFromUserName");
-        mailFromUserPswd = props.getProperty("mailFromUserPswd");
+        mailHostSender = props.getProperty("mail.sender.host");
+        mailHostReceiver = props.getProperty("mail.receiver.host");
+        mailSendPort = props.getProperty("mail.sender.port");
+        mailReceivePort = props.getProperty("mail.receiver.port");
+        mailDebug = Boolean.valueOf(props.getProperty("mail.debug"));
+        mailPath = props.getProperty("mail.path");
+        isValidate = Boolean.valueOf(props.getProperty("mail.validate"));
+        mailFromUserName = props.getProperty("mail.from.username");
+        mailFromUserPswd = props.getProperty("mail.from.password");
+        mailHoursIn = Integer.valueOf(StringUtils.defaultIfBlank(props.getProperty("mail.hours.in"), "24"));
+        attachPath = props.getProperty("mail.attach.path");
 
         //default MailMsgBean
-        MailMsgBean mailMsgBean = new MailMsgBean();
-        mailMsgBean.setMailFrom(props.getProperty("mailFrom"));
+        MessageSendEntity mailMsgBean = new MessageSendEntity();
+        mailMsgBean.setFrom(props.getProperty("mailFrom"));
         if (StringUtils.isNotEmpty(props.getProperty("mailTo"))) {
-            mailMsgBean.setMailTo(props.getProperty("mailTo").split(","));
+            mailMsgBean.setTo(props.getProperty("mailTo").split(","));
         } else {
-            mailMsgBean.setMailTo(null);
+            mailMsgBean.setTo(null);
         }
         if (StringUtils.isNotEmpty(props.getProperty("mailCC"))) {
-            mailMsgBean.setHasCC(true);
-            mailMsgBean.setMailCC(props.getProperty("mailCC").split(","));
-        } else {
-            mailMsgBean.setHasCC(false);
+            mailMsgBean.setCc(props.getProperty("mailCC").split(","));
         }
         if (StringUtils.isNotEmpty(props.getProperty("mailBCC"))) {
-            mailMsgBean.setHasBCC(true);
-            mailMsgBean.setMailBCC(props.getProperty("mailBCC").split(","));
-        } else {
-            mailMsgBean.setHasBCC(false);
+            mailMsgBean.setBcc(props.getProperty("mailBCC").split(","));
         }
 
-        mailMsgBean.setMailSubject(props.getProperty("mailSubject"));
+        mailMsgBean.setSubject(props.getProperty("mailSubject"));
         mailMsgBean.setSendDate(new Date());
 
         if (Boolean.valueOf(props.getProperty("contentFlag"))) {
@@ -81,8 +82,6 @@ public class MailConfig {
             mailMsgBean.setMailContent(null);
         }
 
-        mailMsgBean.setAttachRootPath(props.getProperty("attachPath"));
-
         mailBean = mailMsgBean;
     }
 
@@ -90,12 +89,44 @@ public class MailConfig {
         System.out.println(new MailConfig().toString());
     }
 
-    public static String getMailHost() {
-        return mailHost;
+    public static String getMailHostReceiver() {
+        return mailHostReceiver;
     }
 
-    public static void setMailHost(String mailHost) {
-        MailConfig.mailHost = mailHost;
+    public static void setMailHostReceiver(String mailHostReceiver) {
+        MailConfig.mailHostReceiver = mailHostReceiver;
+    }
+
+    public static String getMailHostSender() {
+        return mailHostSender;
+    }
+
+    public static void setMailHostSender(String mailHostSender) {
+        MailConfig.mailHostSender = mailHostSender;
+    }
+
+    public static String getMailSendPort() {
+        return mailSendPort;
+    }
+
+    public static void setMailSendPort(String mailSendPort) {
+        MailConfig.mailSendPort = mailSendPort;
+    }
+
+    public static boolean isMailDebug() {
+        return mailDebug;
+    }
+
+    public static void setMailDebug(boolean mailDebug) {
+        MailConfig.mailDebug = mailDebug;
+    }
+
+    public static String getMailReceivePort() {
+        return mailReceivePort;
+    }
+
+    public static void setMailReceivePort(String mailReceivePort) {
+        MailConfig.mailReceivePort = mailReceivePort;
     }
 
     public static String getMailPath() {
@@ -130,11 +161,27 @@ public class MailConfig {
         MailConfig.mailFromUserPswd = mailFromUserPswd;
     }
 
-    public static MailMsgBean getMailBean() {
+    public static int getMailHoursIn() {
+        return mailHoursIn;
+    }
+
+    public static void setMailHoursIn(int mailHoursIn) {
+        MailConfig.mailHoursIn = mailHoursIn;
+    }
+
+    public static String getAttachPath() {
+        return attachPath;
+    }
+
+    public static void setAttachPath(String attachPath) {
+        MailConfig.attachPath = attachPath;
+    }
+
+    public static MessageSendEntity getMailBean() {
         return mailBean;
     }
 
-    public static void setMailBean(MailMsgBean mailBean) {
+    public static void setMailBean(MessageSendEntity mailBean) {
         MailConfig.mailBean = mailBean;
     }
 }

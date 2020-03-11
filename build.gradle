@@ -1,6 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'application'
-apply plugin: "sonar-runner"
+//apply plugin: "sonar-runner"
 
 //apply from: 'dependencies.gradle'
 
@@ -28,31 +28,31 @@ buildscript {
 //    options.encoding = "UTF-8"
 //}
 
-project.configurations.all {
-    resolutionStrategy {
-        cacheChangingModulesFor 0, 'seconds'
-        resolutionRules.with {
-            eachModule({ moduleResolve ->
-                if (moduleResolve.request.version.endsWith('-SNAPSHOT')) {
-                    // This will cause the dependency to be refreshed once per build execution
-                    moduleResolve.cacheFor(0, SECONDS)
-                    // This would cause the dependency to be refreshed once per sub-project in a multi-project build. You wouldn't normally want that.
-                    // moduleResolve.refresh()
-                }
-            } as Action)
-            eachArtifact({ artifactResolve ->
-                if (artifactResolve.request.moduleVersionIdentifier.version.endsWith('-SNAPSHOT')) {
-                    artifactResolve.cacheFor(0, SECONDS)
-                }
-            } as Action)
-        }
-    }
-}
+//project.configurations.all {
+//    resolutionStrategy {
+//        cacheChangingModulesFor 0, 'seconds'
+//        resolutionRules.with {
+//            eachModule({ moduleResolve ->
+//                if (moduleResolve.request.version.endsWith('-SNAPSHOT')) {
+//                    // This will cause the dependency to be refreshed once per build execution
+//                    moduleResolve.cacheFor(0, SECONDS)
+//                    // This would cause the dependency to be refreshed once per sub-project in a multi-project build. You wouldn't normally want that.
+//                    // moduleResolve.refresh()
+//                }
+//            } as Action)
+//            eachArtifact({ artifactResolve ->
+//                if (artifactResolve.request.moduleVersionIdentifier.version.endsWith('-SNAPSHOT')) {
+//                    artifactResolve.cacheFor(0, SECONDS)
+//                }
+//            } as Action)
+//        }
+//    }
+//}
 
 /** 此闭包内的声明子类皆可使用 */
 allprojects {
     group = 'cn.rxframework.utils'
-    version = '0.0.8-SNAPSHOT'
+    version = '0.0.8'
 
     apply plugin: 'java'
     apply plugin: 'idea'

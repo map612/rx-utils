@@ -1,7 +1,6 @@
 package cn.rxframework.utils.mail;
 
-import cn.rxframework.utils.mail.MailSendUtil;
-import cn.rxframework.utils.mail.bean.MailMsgBean;
+import cn.rxframework.utils.mail.bean.MessageSendEntity;
 import org.junit.Test;
 
 import java.util.Date;
@@ -45,15 +44,13 @@ public class MailSendUtilTest {
 
     @Test
     public void testSendCommonMail() throws Exception {
-        for(int i = 1; i < 2; i++){
-            MailMsgBean mail = new MailMsgBean();
-            mail.setMailTo(new String[]{"xule@qtonecloud.cn"});
-            mail.setMailSubject("徐乐测试");
-            mail.setContentFlag(true);
-            mail.setMailContent("test - " + System.currentTimeMillis());
-            mail.setSendDate(new Date());
+        MessageSendEntity mail = new MessageSendEntity();
+        mail.setTo(new String[]{"xrichard@vmware.com"});
+        mail.setSubject("徐乐测试");
+        mail.setContentFlag(true);
+        mail.setMailContent("test - " + System.currentTimeMillis());
+        mail.setSendDate(new Date());
 
-            MailSendUtil.getInstance().send(true, mail);
-        }
+        MailSendUtil.getInstance().send(mail);
     }
 }

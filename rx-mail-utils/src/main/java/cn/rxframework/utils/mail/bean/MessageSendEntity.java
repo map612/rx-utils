@@ -15,17 +15,9 @@ import java.util.List;
  * @version  	1.0.0
  * @serial   	
  */
-public class MailMsgBean {
+public class MessageSendEntity extends MessageEntity {
 
-	private String mailFrom;
-	private String[] mailTo;
-	private boolean hasCC;
-	private String[] mailCC;
-	private boolean hasBCC;
-	private String[] mailBCC;
-	private String mailSubject;
-	private Date sendDate;
-
+	private String[] bcc;
 	/**
 	 * common mail configuration params
 	 */
@@ -52,69 +44,13 @@ public class MailMsgBean {
 	private Dur alarmDur = new Dur(0, -1, 0, 0);//default. 1 hour in advance to remind
 	private Duration alarmDuration = new Duration(new Dur(0, 0, 15, 0));//default. every 15 minutes to remind
 	private Repeat alarmRepeat = new Repeat(4);//default. alarm 4 times
-	
-	public String getMailFrom() {
-		return mailFrom;
+
+	public String[] getBcc() {
+		return bcc;
 	}
 
-	public void setMailFrom(String mailFrom) {
-		this.mailFrom = mailFrom;
-	}
-
-	public String[] getMailTo() {
-		return mailTo;
-	}
-
-	public void setMailTo(String[] mailTo) {
-		this.mailTo = mailTo;
-	}
-
-	public boolean isHasCC() {
-		return hasCC;
-	}
-
-	public void setHasCC(boolean hasCC) {
-		this.hasCC = hasCC;
-	}
-
-	public String[] getMailCC() {
-		return mailCC;
-	}
-
-	public void setMailCC(String[] mailCC) {
-		this.mailCC = mailCC;
-	}
-
-	public boolean isHasBCC() {
-		return hasBCC;
-	}
-
-	public void setHasBCC(boolean hasBCC) {
-		this.hasBCC = hasBCC;
-	}
-
-	public String[] getMailBCC() {
-		return mailBCC;
-	}
-
-	public void setMailBCC(String[] mailBCC) {
-		this.mailBCC = mailBCC;
-	}
-
-	public String getMailSubject() {
-		return mailSubject;
-	}
-
-	public void setMailSubject(String mailSubject) {
-		this.mailSubject = mailSubject;
-	}
-
-	public Date getSendDate() {
-		return sendDate;
-	}
-
-	public void setSendDate(Date sendDate) {
-		this.sendDate = sendDate;
+	public void setBcc(String[] bcc) {
+		this.bcc = bcc;
 	}
 
 	public boolean isContentFlag() {

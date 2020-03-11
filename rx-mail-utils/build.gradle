@@ -1,5 +1,6 @@
 dependencies {
     compile "org.apache.commons:commons-lang3:$apacheCommonsLang3Version"
+    compile "commons-io:commons-io:$apacheCommonsIOVersion"
 
     compile 'javax.mail:mail:1.4.6'
     compile 'org.mnode.ical4j:ical4j:1.0.5'

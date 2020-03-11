@@ -1,7 +1,7 @@
 package cn.rxframework.utils.mail;
 
 import cn.rxframework.utils.mail.bean.MailConfig;
-import cn.rxframework.utils.mail.bean.MailMsgBean;
+import cn.rxframework.utils.mail.bean.MessageSendEntity;
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.DateTime;
@@ -11,43 +11,38 @@ import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.parameter.Cn;
 import net.fortuna.ical4j.model.parameter.Role;
 import net.fortuna.ical4j.model.property.*;
-import net.fortuna.ical4j.model.property.Version;
 import net.fortuna.ical4j.util.CompatibilityHints;
 import net.fortuna.ical4j.util.UidGenerator;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
-import javax.mail.*;
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.internet.*;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Properties;
 
-public class MailSendUtil {
-    private static Logger log = LoggerFactory.getLogger(MailSendUtil.class);
+public class MailSendUtil extends MailSessionInit {
+    private static Log log = LogFactory.getLog(MailSendUtil.class);
+    private static String protocol = "pop";
 
-    private static Session session; // 会话
-
-    private static Transport transport; // 发送邮件
-
-    private static final String MAIL_SMTP_HOST = "mail.smtp.host";
-    private static final String MAIL_SMTP_AUTH = "mail.smtp.auth";
-
-    private static MailMsgBean defaultMailBean = MailConfig.getMailBean();
+    private static MessageSendEntity defaultMailBean = MailConfig.getMailBean();
 
     private MailSendUtil() {
         try {
-            init();
+            init(protocol);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Fail to initial mail session", e);
         }
     }
 
@@ -58,13 +53,10 @@ public class MailSendUtil {
     /**
      * <b>DEDCRIPTION:</b> You can send a mail use this method, with which you can send content, attachment or both
      *
-     * @param debug print the mail debug info
      * @param mail  use default mailBean while this param is null
      */
-    public boolean send(boolean debug, MailMsgBean mail) {
-        new MailSendUtil();
-        session.setDebug(debug);
-
+    public boolean send(MessageSendEntity mail) {
+//        new MailSendUtil();
         try {
             Message message = createMessage(mail);
 
@@ -72,11 +64,11 @@ public class MailSendUtil {
 
                 transport.sendMessage(message, message.getAllRecipients());
                 log.debug("- " + (mail.isMeetingFlag() ? "meeting " : "") + "mail send successfully!");
-                log.debug("- TO : " + Arrays.toString(mail.getMailTo()));
-                if (mail.isHasCC())
-                    log.debug("- CC  : " + Arrays.toString(mail.getMailCC()));
-                if (mail.isHasBCC())
-                    log.debug("- BCC : " + Arrays.toString(mail.getMailBCC()));
+                log.debug("- TO : " + Arrays.toString(mail.getTo()));
+                if (ArrayUtils.isNotEmpty(mail.getCc()))
+                    log.debug("- CC  : " + Arrays.toString(mail.getCc()));
+                if (ArrayUtils.isNotEmpty(mail.getBcc()))
+                    log.debug("- BCC : " + Arrays.toString(mail.getBcc()));
                 if (mail.isAttachFlag()) {
                     log.debug("- Attachments Path : " + mail.getAttachRootPath());
                     log.debug("- Attachments Real Name : " + Arrays.toString(mail.getAttachFileName()));
@@ -126,10 +118,10 @@ public class MailSendUtil {
      * @return
      */
     public boolean sendAdmin(boolean debug, String subject, String content, String attachPath, String[] attachFileName, String[] attachName) {
-        MailMsgBean mail = new MailMsgBean();
+        MessageSendEntity mail = new MessageSendEntity();
 
-        mail.setMailTo(defaultMailBean.getMailTo());
-        mail.setMailSubject(StringUtils.isEmpty(subject) ? MailConfig.getMailBean().getMailSubject() : subject);
+        mail.setTo(defaultMailBean.getTo());
+        mail.setSubject(StringUtils.isEmpty(subject) ? MailConfig.getMailBean().getSubject() : subject);
         mail.setContentFlag(true);
         mail.setMailContent(StringUtils.isEmpty(content) ? MailConfig.getMailBean().getMailContent() : content);
 
@@ -141,7 +133,7 @@ public class MailSendUtil {
         }
 
         mail.setSendDate(new Date());
-        return send(debug, mail);
+        return send(mail);
     }
 
     /**
@@ -150,34 +142,34 @@ public class MailSendUtil {
      * @return Message
      * @throws Exception
      */
-    private Message createMessage(MailMsgBean mail) throws Exception {
+    private Message createMessage(MessageSendEntity mail) throws Exception {
 
         MimeMessage message = null;
         mail = mail == null ? defaultMailBean : mail;
 
-        if (mail.getMailTo() != null || mail.isMeetingFlag()) {
+        if (mail.getTo() != null || mail.isMeetingFlag()) {
             message = new MimeMessage(session);
 
             // set sender address
-            String from = mail.getMailFrom() == null ? defaultMailBean.getMailFrom() : mail.getMailFrom();
+            String from = mail.getFrom() == null ? defaultMailBean.getFrom() : mail.getFrom();
             message.setFrom(new InternetAddress(from, from));
 
             message.setSentDate(mail.getSendDate());
 
             // set receiver addresses
-            message.addRecipients(Message.RecipientType.TO, getAddress(mail.getMailTo()));
+            message.addRecipients(Message.RecipientType.TO, getAddress(mail.getTo()));
 
             // set carbon copy(CC) receiver addresses
-            if (mail.isHasCC() && ArrayUtils.isNotEmpty(mail.getMailCC())) {
-                message.addRecipients(Message.RecipientType.CC, getAddress(mail.getMailCC()));
+            if (ArrayUtils.isNotEmpty(mail.getCc())) {
+                message.addRecipients(Message.RecipientType.CC, getAddress(mail.getCc()));
             }
             // set blind carbon copy(BCC) receiver addresses
-            if (mail.isHasBCC() && ArrayUtils.isNotEmpty(mail.getMailBCC())) {
-                message.addRecipients(Message.RecipientType.BCC, getAddress(mail.getMailBCC()));
+            if (ArrayUtils.isNotEmpty(mail.getBcc())) {
+                message.addRecipients(Message.RecipientType.BCC, getAddress(mail.getBcc()));
             }
 
             // set mail subject
-            message.setSubject(mail.getMailSubject());
+            message.setSubject(mail.getSubject());
 //			message.setSubject(MimeUtility.encodeText(mail.getMailSubject(), "GB2312", "B"));
 
             // get mail object
@@ -192,7 +184,7 @@ public class MailSendUtil {
         return message;
     }
 
-    private Multipart getCommonMailBody(MailMsgBean mail) throws MessagingException {
+    private Multipart getCommonMailBody(MessageSendEntity mail) throws MessagingException {
         Multipart multipart = new MimeMultipart();
         // set mail content and attachment
         if (mail.isContentFlag() || mail.isAttachFlag()) {
@@ -217,7 +209,7 @@ public class MailSendUtil {
         return multipart;
     }
 
-    private Multipart getMeetingMailBody(MailMsgBean mail) throws Exception {
+    private Multipart getMeetingMailBody(MessageSendEntity mail) throws Exception {
         Multipart multipart = new MimeMultipart();
         MimeBodyPart iCalAttachment = new MimeBodyPart();
         MimeBodyPart contentPart = new MimeBodyPart();
@@ -261,7 +253,7 @@ public class MailSendUtil {
      * （iCalendar 组件分为 Events(VEVENT)、To-do(VTODO)、Journal(VJOURNAL)、Free/busy time (VFREEBUSY)、VTIMEZONE (time zones) <br/>
      * 和 VALARM (alarms)），但是多个 iCalendar 组件可以被组织在一起<br/>
      */
-    private byte[] createICalInvitation(MailMsgBean mail) throws Exception {
+    private byte[] createICalInvitation(MessageSendEntity mail) throws Exception {
 
         /**  以下两步骤的处理也是为了防止outlook或者是notes将日历当做附件使用增加的 */
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_OUTLOOK_COMPATIBILITY, true);
@@ -285,12 +277,12 @@ public class MailSendUtil {
 
         UidGenerator ug = new UidGenerator("uidGen");
         vEvent.getProperties().add(ug.generateUid());
-        vEvent.getProperties().add(new Summary(mail.getMailSubject()));
+        vEvent.getProperties().add(new Summary(mail.getSubject()));
         vEvent.getProperties().add(new Description(mail.getMailContent()));
         vEvent.getProperties().add(new DtStart(new DateTime(mail.getMeetingStart())));
         vEvent.getProperties().add(new DtEnd(new DateTime(mail.getMeetingEnd())));
         vEvent.getProperties().add(new Location(mail.getLocation()));
-        vEvent.getProperties().add(new Organizer(mail.getMailFrom()));
+        vEvent.getProperties().add(new Organizer(mail.getFrom()));
         // add attendees
         for (String[] participant : mail.getMeetingReqs()) {
             Attendee attendee = new Attendee(URI.create("mailto:" + participant[0]));
@@ -334,14 +326,6 @@ public class MailSendUtil {
         return bout.toByteArray();
     }
 
-    private Address[] getAddress(String[] address) throws AddressException {
-        Address[] addrs = new InternetAddress[address.length];
-        for (int i = 0; i < address.length; i++)
-            addrs[i] = new InternetAddress(address[i]);
-        return addrs;
-
-    }
-
     /**
      * <b>DEDCRIPTION:</b> add attachments to the mail
      *
@@ -371,60 +355,4 @@ public class MailSendUtil {
         }
     }
 
-
-    /**
-     * <b>DEDCRIPTION:</b> initial mail server connection
-     */
-    private void init() throws Exception {
-        log.debug("----- start init mail environment -----");
-        Authenticator auth = new Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(MailConfig.getMailFromUserName(), MailConfig.getMailFromUserPswd());
-            }
-        };
-
-        Properties props = new Properties();
-
-        // 设置发送邮件的邮件服务器的属性
-        props.put(MAIL_SMTP_HOST, MailConfig.getMailHost());
-
-        // 需要经过授权，也就是有户名和密码的校验，这样才能通过验证（一定要有这一条）
-        props.put(MAIL_SMTP_AUTH, MailConfig.isValidate());
-
-//		MailSSLSocketFactory sf = new MailSSLSocketFactory();
-//		sf.setTrustAllHosts(true);
-//		props.put("mail.smtp.ssl.enable", "true");
-//		props.put("mail.smtp.ssl.socketFactory", sf);
-
-        // 用刚刚设置好的props对象构建一个session
-        session = Session.getDefaultInstance(props, auth);
-
-        try {
-            // 发送邮件
-            transport = session.getTransport("smtp");
-            // 连接服务器的邮箱
-            transport.connect(MailConfig.getMailHost(), MailConfig.getMailFromUserName(), MailConfig.getMailFromUserPswd());
-
-            log.debug("----- Connect with " + MailConfig.getMailHost() + " successfully -----");
-        } catch (Exception e) {
-            log.error("----- Connect with " + MailConfig.getMailHost() + " failed -----", e);
-        }
-
-    }
-
-    /**
-     * <b>DEDCRIPTION:</b> close mail server connection
-     *
-     * @throws MessagingException
-     */
-
-    private static void close() throws MessagingException {
-        if (null != transport)
-            transport.close();
-    }
-
-    public static void main(String[] args) {
-
-
-    }
 }
