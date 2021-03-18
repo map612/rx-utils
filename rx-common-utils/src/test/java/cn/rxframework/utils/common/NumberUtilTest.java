@@ -13,7 +13,7 @@ import cn.rxframework.utils.common.math.NumberUtils;
 public class NumberUtilTest {
 
     public static void main(String[] args) {
-        System.out.println(NumberUtils.format(67.425));
+        System.out.println(NumberUtils.format(67.426));
         System.out.println(NumberUtils.format(0.425, "#0.00"));
         System.out.println(NumberUtils.format2str(12313.425));
         System.out.println(NumberUtils.format2str(12313.425, false));
